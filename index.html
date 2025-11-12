@@ -1,0 +1,170 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Entrando no grupo...</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --gradient: linear-gradient(135deg, #0072ff 0%, #00c6ff 100%);
+      --bg: #f7faff;
+      --text: #0f172a;
+    }
+    *{box-sizing:border-box;margin:0;padding:0;}
+    body{
+      height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      flex-direction:column;
+      font-family:'Poppins',sans-serif;
+      background:var(--bg);
+      overflow:hidden;
+      padding: 20px;
+    }
+    h1{
+      font-size:2.3rem;
+      font-weight:700;
+      color:var(--text);
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:16px;
+      text-align:center;
+      background:var(--gradient);
+      -webkit-background-clip:text;
+      -webkit-text-fill-color:transparent;
+      animation:pulse 1.2s infinite;
+    }
+    p{
+      margin-top:14px;
+      font-size:1.05rem;
+      color:#555;
+      text-align: center;
+    }
+    .btn-container{
+      margin-top: 30px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+    }
+    .btn-redirect{
+      padding: 14px 32px;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #fff;
+      background: var(--gradient);
+      border: none;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      box-shadow: 0 4px 15px rgba(0, 114, 255, 0.3);
+      font-family: 'Poppins', sans-serif;
+    }
+    .btn-redirect:hover{
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0, 114, 255, 0.4);
+    }
+    .btn-redirect:active{
+      transform: translateY(0);
+    }
+    .loader{
+      width:50px;
+      height:50px;
+      border:5px solid rgba(0,0,0,0.1);
+      border-top-color:#00aaff;
+      border-radius:50%;
+      animation:spin 1s linear infinite;
+      display: none;
+    }
+    .loader.active{
+      display: block;
+    }
+    @keyframes spin{to{transform:rotate(360deg);}}
+    @keyframes pulse{0%,100%{opacity:1;}50%{opacity:.7;}}
+    .icon{
+      width:36px;
+      height:36px;
+      display:inline-flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .icon svg{
+      width:100%;
+      height:100%;
+      vertical-align:middle;
+    }
+    @media (max-width: 600px){
+      h1{
+        font-size: 1.8rem;
+        gap: 12px;
+      }
+      .icon{
+        width: 30px;
+        height: 30px;
+      }
+      p{
+        font-size: 0.95rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>
+    <span class="icon" aria-hidden="true">
+      <!-- Ícone Telegram -->
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240"><circle fill="#0088cc" cx="120" cy="120" r="120"/><path fill="#fff" d="M98 175c-4 0-4-3-4-5 0-4 2-12 3-18 2-8 4-18 5-22 1-3 0-5-3-5-2 0-7 2-12 5l-6 4c-2 2-3 2-6 2-4 0-7-2-7-7 0-3 1-5 3-6 16-11 32-21 50-31 23-13 39-21 48-21 4 0 7 1 8 3 1 1 1 3 1 4 0 2 0 3-1 5l-1 1c-4 15-8 32-12 48-3 12-6 25-9 37-2 6-5 9-11 9-3 0-7-1-11-4l-26-20c-3-2-6-4-7-4z"/></svg>
+    </span>
+    Entrando no grupo
+    <span class="icon" aria-hidden="true">
+      <!-- Ícone Telegram (mesmo do início) -->
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 240"><circle fill="#0088cc" cx="120" cy="120" r="120"/><path fill="#fff" d="M98 175c-4 0-4-3-4-5 0-4 2-12 3-18 2-8 4-18 5-22 1-3 0-5-3-5-2 0-7 2-12 5l-6 4c-2 2-3 2-6 2-4 0-7-2-7-7 0-3 1-5 3-6 16-11 32-21 50-31 23-13 39-21 48-21 4 0 7 1 8 3 1 1 1 3 1 4 0 2 0 3-1 5l-1 1c-4 15-8 32-12 48-3 12-6 25-9 37-2 6-5 9-11 9-3 0-7-1-11-4l-26-20c-3-2-6-4-7-4z"/></svg>
+    </span>
+  </h1>
+  <p>Clique no botão abaixo para entrar no grupo</p>
+  
+  <div class="btn-container">
+    <button class="btn-redirect" id="btnEntrar">Entrar no Grupo</button>
+    <div class="loader" id="loader"></div>
+  </div>
+
+  <script>
+    // Link de destino do Telegram
+    const DESTINO = 'https://t.me/+MnO2cV-Uw2diZTUx';
+
+    const btnEntrar = document.getElementById('btnEntrar');
+    const loader = document.getElementById('loader');
+
+    btnEntrar.addEventListener('click', function() {
+      // Mostra o loader
+      loader.classList.add('active');
+      btnEntrar.disabled = true;
+      btnEntrar.style.opacity = '0.6';
+      btnEntrar.style.cursor = 'not-allowed';
+
+      // Tenta abrir em nova aba
+      const novaAba = window.open(DESTINO, '_blank');
+      
+      // Verifica se conseguiu abrir (bloqueadores de popup podem impedir)
+      if (novaAba) {
+        // Sucesso ao abrir nova aba
+        setTimeout(() => {
+          loader.classList.remove('active');
+          btnEntrar.disabled = false;
+          btnEntrar.style.opacity = '1';
+          btnEntrar.style.cursor = 'pointer';
+          btnEntrar.textContent = 'Entrar Novamente';
+        }, 1500);
+      } else {
+        // Se bloqueado, redireciona na mesma aba
+        setTimeout(() => {
+          window.location.href = DESTINO;
+        }, 500);
+      }
+    });
+  </script>
+</body>
+</html>
